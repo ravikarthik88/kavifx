@@ -1,0 +1,99 @@
+﻿@model Kavifx.UI.Models.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+    var userid = User.FindFirst(c => c.Type == "nameid").Value;
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+    <a asp-controller="Profile" asp-action="Edit" asp-route-id="@userid" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Edit Profile
+    </a>
+</div>
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="col-xl-4 col-lg-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Profile Picture</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body text-center">                
+                <img src="@Model.ProfilePicture" alt="ProfilePicture" class="rounded-circle" style="max-width:300px;max-height:300px;" />
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12">
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.FirstName)</span>
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.LastName)</span>
+                    </div>
+                </div>
+                <a asp-controller="Profile" asp-action="ChangePicture" class="btn btn-sm btn-primary btn-block shadow-sm">
+                    <i class="fas fa-download fa-sm text-white-50"></i> Change Profile Picture
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8">
+        <div class="card shadow mb-4 rounded-3">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Account Details</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="form-group row p-3" style="border-bottom:1px solid var(--gray)">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @Html.DisplayNameFor(model => model.FirstName)
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.FirstName)</span>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @Html.DisplayNameFor(model => model.LastName)
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.LastName)</span>
+                    </div>
+                </div>
+                <div class="form-group row p-3" style="border-bottom:1px solid var(--gray)">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @Html.DisplayNameFor(model => model.Email)
+                        <span class="text-primary fw-bold fs-6 text-lowercase">@Html.DisplayFor(model => model.Email)</span>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @Html.DisplayNameFor(model => model.Company)
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.Company)</span>
+                    </div>
+                </div>
+                <div class="form-group row p-3" style="border-bottom:1px solid var(--gray)">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @Html.DisplayNameFor(model => model.DateOfBirth)
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.DateOfBirth)</span>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @Html.DisplayNameFor(model => model.Address)
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.Address)</span>
+                    </div>
+                </div>
+                <div class="form-group row p-3" style="border-bottom:1px solid var(--gray)">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @Html.DisplayNameFor(model => model.City)
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.City)</span>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @Html.DisplayNameFor(model => model.State)
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.State)</span>
+                    </div>
+                </div>
+                <div class="form-group row p-3" style="border-bottom:1px solid var(--gray)">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @Html.DisplayNameFor(model => model.PinCode)
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.PinCode)</span>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                        <span class="text-primary fw-bold fs-6 text-capitalize">@Html.DisplayFor(model => model.PhoneNumber)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

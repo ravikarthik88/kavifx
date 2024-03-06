@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kavifx.API", "Kavifx.API.csproj", "{00081283-91B7-4ACC-B048-1ED36F8585A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kavifx.UI", "..\Kavifx.UI\Kavifx.UI.csproj", "{FE9D3E76-1B1D-4A70-9F71-9FDFAD0339B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00081283-91B7-4ACC-B048-1ED36F8585A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00081283-91B7-4ACC-B048-1ED36F8585A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00081283-91B7-4ACC-B048-1ED36F8585A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00081283-91B7-4ACC-B048-1ED36F8585A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE9D3E76-1B1D-4A70-9F71-9FDFAD0339B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE9D3E76-1B1D-4A70-9F71-9FDFAD0339B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE9D3E76-1B1D-4A70-9F71-9FDFAD0339B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE9D3E76-1B1D-4A70-9F71-9FDFAD0339B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FBC92DD-053A-4716-A1DE-514A6C5BDEBD}
+	EndGlobalSection
+EndGlobal

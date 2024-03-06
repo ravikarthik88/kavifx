@@ -1,0 +1,34 @@
+﻿@model Kavifx.UI.Models.UserRoleViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Assign Role</h1>
+    <a asp-action="Index" asp-controller="UserRole" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Assign New Role
+    </a>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SelectedUser" class="control-label"></label>
+                @Html.DropDownListFor(m => m.SelectedUser, new SelectList(Model.Users, "Value", "Text"), "Please select a User", new { @class = "form-control form-select" })
+                <span asp-validation-for="SelectedUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedRole" class="control-label"></label>
+                @Html.DropDownListFor(m => m.SelectedRole, new SelectList(Model.Roles, "Value", "Text"), "Please select a User", new { @class = "form-control form-select" })
+                <span asp-validation-for="SelectedRole" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

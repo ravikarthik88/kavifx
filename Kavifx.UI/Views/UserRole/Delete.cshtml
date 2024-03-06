@@ -1,0 +1,15 @@
+﻿@model Kavifx.UI.Models.AssignUserToRoleViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+    
+<form asp-action="Delete" asp-asp-controller="UserRole" method="post">
+    <input type="submit" value="Delete" class="btn btn-danger" /> 
+</form>
+

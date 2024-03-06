@@ -1,0 +1,111 @@
+﻿@model Kavifx.UI.Models.UpdateProfileViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+
+<style>
+    .profile-picture {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+
+</style>
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Edit Profile</h1>
+    <a asp-controller="Profile" asp-action="Index" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Profile
+    </a>
+</div>
+
+<form asp-action="Edit" asp-controller="Profile" method="post" enctype="multipart/form-data" class="user">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div class="col-xl-4 col-lg-4">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Profile Picture</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body text-center">
+                    <img src="@Url.Content("~/uploads/common/avatar.png")" class="profile-picture" id="profile-picture-preview" />
+                    <input type="file" class="form-control form-control-user d-none" id="profile-picture-upload" asp-for="file" onchange="previewProfilePicture(event)" />
+                    <span asp-validation-for="file" class="text-danger"></span>
+                    <div class="clearfix py-2">&nbsp;</div>
+                    <button class="btn btn-primary btn-sm btn-block" type="button" onclick="document.getElementById('profile-picture-upload').click()"><i class="fas fa-cloud-upload-alt"></i> Upload </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8 col-lg-8">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Account Details</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label asp-for="Company" class="control-label"></label>
+                            <input asp-for="Company" class="form-control form-control-user" />
+                            <span asp-validation-for="Company" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label asp-for="DateOfBirth" class="control-label"></label>
+                            <input asp-for="DateOfBirth" class="form-control form-control-user" />
+                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control form-control-user" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-4 mb-3 mb-sm-0">
+                            <label asp-for="City" class="control-label"></label>
+                            <input asp-for="City" class="form-control form-control-user" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-4 mb-3 mb-sm-0">
+                            <label asp-for="State" class="control-label"></label>
+                            <input asp-for="State" class="form-control form-control-user" />
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-4 mb-3 mb-sm-0">
+                            <label asp-for="PinCode" class="control-label"></label>
+                            <input asp-for="PinCode" class="form-control form-control-user" />
+                            <span asp-validation-for="PinCode" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control form-control-user" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary btn-block" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    function previewProfilePicture(event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function () {
+            var dataURL = reader.result;
+            var profilePicturePreview = document.getElementById('profile-picture-preview');
+            profilePicturePreview.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>

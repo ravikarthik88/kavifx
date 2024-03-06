@@ -1,0 +1,68 @@
+﻿@model Kavifx.UI.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="bg-gradient-primary">
+    <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    </div>
+                                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "user" }))
+                                    {                                       
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-user", type = "email", placeholder = "Enter Email Address..." })
+                                            <span class="text-danger">@Html.ValidationMessageFor(m => m.Email)</span>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control form-control-user", type = "password", placeholder = "Password" })
+                                            <span class="text-danger">@Html.ValidationMessageFor(m => m.Password)</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-primary btn-user btn-block" value="Login" />
+                                        </div>
+                                        <hr>
+                                        <a asp-action="Index" asp-controller="home" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Login with Google
+                                        </a>
+                                        <a asp-action="Index" asp-controller="home" class="btn btn-facebook btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                        </a>
+                                        <a asp-action="Index" asp-controller="home" class="btn btn-danger btn-user btn-block">
+                                            <i class="fas fa-chevron-circle-left fa-fw"></i> Back / Cancel
+                                        </a>
+                                    }
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small text-decoration-none" asp-action="Index" asp-controller="home">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small text-decoration-none" asp-controller="Account" asp-action="Register">Create an Account!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
