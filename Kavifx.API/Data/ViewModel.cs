@@ -40,14 +40,12 @@ namespace Kavifx.API.Data
         [Required, DataType(DataType.Password)]
         public string Password { get; set; }
         public string ProfilePictureUrl { get; set; }
-    }
-    
+    }    
     public class UpdateUserViewModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }
-
     public class ProfileViewModel
     {
         public string UserId { get; set; }
@@ -56,10 +54,7 @@ namespace Kavifx.API.Data
         public string Email { get; set; }
         public string DateOfBirth { get; set; }
         public string Company { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string PinCode { get; set; }
+        public string Location { get; set; }
         public string PhoneNumber { get; set; }
         public string ProfilePicture { get; set; }
     }
@@ -69,28 +64,25 @@ namespace Kavifx.API.Data
         public string Company { get; set; }
         [DataType(DataType.Date)]
         public string DateOfBirth { get; set; }
-        [DataType(DataType.Text)]
-        public string Address { get; set; }
-        [DataType(DataType.Text)]
-        public string City { get; set; }
-        [DataType(DataType.Text)]
-        public string State { get; set; }
-        [DataType(DataType.PostalCode)]
-        public string PinCode { get; set; }
+        [Required,DataType(DataType.Text)]
+        public string Location { get; set; }
         [Required, DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
         public IFormFile file { get; set; }
     }
     public class UpdateProfilePictureViewModel
     {
-        public byte[] PicData { get; set; }
-        public string PictureUrl { get; set; }
+        public string UserId { get; set; }
+        public IFormFile file { get; set; }
     }
-
     public class ChangePasswordViewModel
     {
+        public string UserId { get; set; }
+        [Required, DataType(DataType.Password)]
         public string OldPassword { get; set; }
+        [Required, DataType(DataType.Password)]
         public string NewPassword { get; set; }
+        [Compare("NewPassword"), DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
     }
 

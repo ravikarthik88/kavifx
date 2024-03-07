@@ -1,16 +1,10 @@
-using Kavifx.UI.helper;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient("ApiClient", client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration["ApiUrl:Dev"]);
-    client.DefaultRequestHeaders.TransferEncodingChunked = false;
+    client.BaseAddress = new Uri(builder.Configuration["ApiUrl:Dev"]);    
 });
 
 builder.Services.AddSession(options =>
@@ -51,8 +45,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-
-app.UseMiddleware<DeChunkerMiddleware>();
 
 app.UseSession();
 app.UseRouting();

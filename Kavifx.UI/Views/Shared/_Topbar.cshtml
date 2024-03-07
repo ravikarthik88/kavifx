@@ -1,4 +1,8 @@
 ﻿@using System.Security.Claims
+@{
+    var name = @User.FindFirst(c => c.Type == "unique_name").Value;
+    var pic = @User.FindFirst(c => c.Type == "Profilepic").Value;
+}
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -13,9 +17,9 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 @if (User.Identity.IsAuthenticated == true)
                 {
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 large text-capitalize">@User.FindFirst(c => c.Type == "unique_name").Value</span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 large text-capitalize">@name</span>
                     <img class="img-fluid rounded-circle"
-                         src="@Url.Content("~/uploads/common/avatar.png")" style="max-width:50px;max-height:50px;">
+                         src="@pic" style="max-width:50px;max-height:50px;">
                 }
                 else
                 {
@@ -32,7 +36,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" asp-controller="User" asp-action="Settings">
+                    <a class="dropdown-item" asp-controller="Profile" asp-action="ChangePassword">
                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                         Settings
                     </a>

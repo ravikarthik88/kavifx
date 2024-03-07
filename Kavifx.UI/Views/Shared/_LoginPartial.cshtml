@@ -1,20 +1,20 @@
 ﻿@using System.Security.Claims
-
 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-    @if (User.Identity.IsAuthenticated == true)
-    {   <li class="nav-item">
-            <a asp-action="index" asp-controller="dashboard" role="button" class="nav-link text-white">
-                <span class="navbar-text text-white text-capitalize large"><span>&nbsp;&nbsp;</span>@User.FindFirst(c =>c.Type =="unique_name").Value</span>
-            </a>
-        </li>
+    @if (!User.Identity.IsAuthenticated)
+    {
         <li class="nav-item">
-            <a class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#logoutModal2">Logout</a>
+            <a class="nav-link text-white" asp-controller="Account" asp-action="Login">LogIn</a>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-white" asp-controller="Account" asp-action="Login">LogIn</a>
+            <a asp-action="index" asp-controller="dashboard" role="button" class="nav-link text-white">
+              <span class="navbar-text text-white text-capitalize large"><span>&nbsp;&nbsp;</span>@User.FindFirst(c => c.Type == "unique_name").Value</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#logoutModal2">Logout</a>
         </li>
     }
 </ul>

@@ -35,12 +35,9 @@ namespace Kavifx.API.Controllers
                 DateOfBirth = user.DateOfBirth.ToShortDateString(),
                 Email = user.Email,
                 Company = user.Company,
-                Address = user.Address,
-                City = user.City,
-                State = user.State,
-                PinCode = user.PinCode,
+                Location = user.Location,
                 PhoneNumber = user.PhoneNumber,
-                ProfilePicture = user.PictureUrl
+                ProfilePicture = user.PictureUrl == null ? $"{Request.Scheme}://{Request.Host}{Request.PathBase}/uploads/common/avatar.png" : user.PictureUrl
             };
             return Ok(profile);
         }
@@ -90,14 +87,11 @@ namespace Kavifx.API.Controllers
             }
             else
             {
-                 ImageUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase} +/uploads/common/avatar.png";
+                 ImageUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/uploads/common/avatar.png";
             }
             user.Company = model.Company;
             user.DateOfBirth = Convert.ToDateTime(model.DateOfBirth);
-            user.Address = model.Address;
-            user.City = model.City;
-            user.State = model.State;
-            user.PinCode = model.PinCode;
+            user.Location = model.Location;
             user.PhoneNumber = model.PhoneNumber;
             user.PhoneNumberConfirmed = true;
             user.PictureUrl = ImageUrl;
@@ -108,6 +102,61 @@ namespace Kavifx.API.Controllers
             }
 
             return Ok(new { message = "file uploaded successfully" });
+        }
+
+        [HttpPut("changeprofilepic")]
+        public async Task<IActionResult> UpdateProfilePicture([FromForm]UpdateProfilePictureViewModel model)
+        {
+            string ImageUrl = string.Empty;
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return NotFound("User Not Found");
+            }
+            if (model.file == null || model.file.Length == 0 || Request.Form.Files.Count > 1)
+            {
+                return BadRequest("Invalid request data");
+            }
+
+            var webrootpath = _env.WebRootPath;
+            var filePath = Path.Combine(webrootpath, "uploads", "profilepics");
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            //check allowed extensions
+            var extn = Path.GetExtension(model.file.FileName);
+            var allowedExtensions = new string[] { ".jpg", ".png", ".jpeg" };
+            if (!allowedExtensions.Contains(extn))
+            {
+                return BadRequest(new { message = "Only {0} extensions are allowed", allowedextn = string.Join(",", allowedExtensions) });
+            }
+
+            string uniquestring = Guid.NewGuid().ToString();
+            var newFileName = uniquestring + extn;
+            var filewithPath = Path.Combine(filePath, newFileName);
+            using (var stream = new FileStream(filewithPath, FileMode.Create))
+            {
+                await model.file.CopyToAsync(stream);
+                await stream.FlushAsync();
+            }
+
+            if (System.IO.File.Exists(filewithPath))
+            {
+                ImageUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/uploads/profilepics/{newFileName}";
+            }
+            else
+            {
+                ImageUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/uploads/common/avatar.png";
+            }
+            user.PictureUrl = ImageUrl;
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+            return Ok(new { message = "file uploaded successfully" });            
         }
 
         [HttpPost("changepassword")]

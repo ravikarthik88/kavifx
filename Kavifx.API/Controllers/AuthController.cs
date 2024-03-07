@@ -41,7 +41,8 @@ namespace Kavifx.API.Controllers
                     {
                         new Claim(ClaimTypes.Name,user.FirstName),
                         new Claim(ClaimTypes.Email,model.Email),
-                        new Claim(ClaimTypes.NameIdentifier,user.Id)                        
+                        new Claim(ClaimTypes.NameIdentifier,user.Id),
+                        new Claim("Profilepic",user.PictureUrl)
                     };
 
                     var roles = await _userManager.GetRolesAsync(user);
@@ -70,7 +71,9 @@ namespace Kavifx.API.Controllers
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]RegisterViewModel model)
-        {           
+        {
+            string ImageUrl = string.Empty;
+            ImageUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/uploads/common/avatar.png";
             var userExists = await _userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
             {
@@ -83,7 +86,8 @@ namespace Kavifx.API.Controllers
                 LastName = model.LastName,
                 UserName = model.Email,
                 Email = model.Email,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                PictureUrl = ImageUrl
             };
 
             var result = await _userManager.CreateAsync(newuser, model.Password);

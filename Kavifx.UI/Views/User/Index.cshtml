@@ -53,14 +53,7 @@
                                             @Html.DisplayFor(modelItem => item.Email)
                                         </td>
                                         <td>
-                                            @if (string.IsNullOrEmpty(item.ProfilePictureUrl))
-                                            {
-                                                <img src="@Url.Content(item.ProfilePictureUrl)" class="img-fluid rounded" style="max-width:50px;max-height:50px;"/>
-                                            }
-                                            else
-                                            {
-                                                <img src="@Url.Content("~/uploads/common/avatar.png")" class="img-fluid rounded" style="max-width:50px;max-height:50px;" />
-                                            }
+                                            <img src="@item.ProfilePictureUrl" class="img-fluid rounded" style="max-width:50px;max-height:50px;"/>
                                         </td>
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm", role = "button" })

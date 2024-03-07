@@ -9,12 +9,9 @@ namespace Kavifx.API.Data
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string Address { get; set; }
+        public DateTime DateOfBirth { get; set; }        
         public string Company { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string PinCode { get; set; }
+        public string Location { get; set; }
         public string PictureUrl { get; set; }
         public bool IsActive { get; set; } = true;
         public bool IsDeleted { get; set; } = false;

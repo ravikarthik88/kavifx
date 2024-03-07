@@ -1,0 +1,63 @@
+﻿@model Kavifx.UI.Models.UpdateProfilePictureViewModel
+
+@{
+    ViewData["Title"] = "ChangePicture";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+    var userid = User.FindFirst(c => c.Type == "nameid").Value;
+}
+
+<style>
+    .profile-picture {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+</style>
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Change Profile Picture</h1>
+    <a asp-controller="Profile" asp-action="Index" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Profile
+    </a>
+</div>
+<form asp-action="ChangePicture" asp-controller="Profile" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-xl-4 col-lg-4">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Profile Picture</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body text-center">
+                <div class="form-group">
+                    <input type="hidden" value="@userid" asp-for="UserId" />
+                </div>
+                <div class="form-group">
+                    <img src="@Url.Content("~/uploads/common/avatar.png")" class="profile-picture" id="profile-picture-preview" />
+                    <input type="file" class="form-control form-control-user d-none" id="profile-picture-upload" asp-for="file" onchange="previewProfilePicture(event)" />
+                    <span asp-validation-for="file" class="text-danger"></span>
+                    <div class="clearfix py-2">&nbsp;</div>
+                    <button class="btn btn-primary btn-sm btn-block" type="button" onclick="document.getElementById('profile-picture-upload').click()"><i class="fas fa-cloud-upload-alt"></i> Upload </button>
+                    <div class="clearfix py-2">&nbsp;</div>
+                    <input type="submit" value="Save" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    function previewProfilePicture(event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function () {
+            var dataURL = reader.result;
+            var profilePicturePreview = document.getElementById('profile-picture-preview');
+            profilePicturePreview.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>
