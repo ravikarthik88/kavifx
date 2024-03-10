@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kavifx.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240307042458_Init4")]
-    partial class Init4
+    [Migration("20240310095715_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
