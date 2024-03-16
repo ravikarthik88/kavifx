@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4 rounded-3">
-                <div class="card-header">
+                <div class="card-header text-primary fw-bold">
                     Assign Role
                 </div>
                 <div class="card-body">
@@ -59,6 +59,10 @@
     </div>
 </div>
 
+@section scripts{
 <script>
-    $('#userTable').DataTable();
+    $(document).ready(function () {
+        $('#userTable').DataTable();
+    });
 </script>
+}

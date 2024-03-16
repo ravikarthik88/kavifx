@@ -1,11 +1,10 @@
 ﻿using Kavifx.UI.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
 namespace Kavifx.UI.Controllers
-{   
+{
     public class UserController : Controller
     {
         HttpClient client;
@@ -49,9 +48,18 @@ namespace Kavifx.UI.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Edit()
+        [HttpGet]       
+        public async Task<IActionResult> Edit(string id)
         {
+            string Token = HttpContext.Session.GetString("JWTToken");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+            var response = await client.GetAsync("User/"+id);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<UpdateUserViewModel>(json);
+                return View(data);
+            }
             return View();
         }
 
@@ -69,7 +77,6 @@ namespace Kavifx.UI.Controllers
             return View();
         }
 
-        [HttpGet]
         public IActionResult Delete()
         {
             return View();
