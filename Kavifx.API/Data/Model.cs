@@ -10,6 +10,9 @@ namespace Kavifx.API.Data
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Company { get; set; }
+        public string Location { get; set; }
+        public DateTime DateOfBirth { get; set; }        
         public string PictureUrl { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
@@ -52,17 +55,4 @@ namespace Kavifx.API.Data
         public virtual Permission Permission { get; set; }
     }
 
-    public class Profile
-    {
-        [Key]
-        public int Id { get; set; }
-        public string UserId { get; set; }
-        public string Company { get; set; }
-        public string Location { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string PhoneNumber { get; set; }
-        public string PictureUrl { get; set; }
-        [ForeignKey("UserId")]
-        public virtual AppUser User { get; set; }
-    }
 }
