@@ -31,6 +31,9 @@ namespace Kavifx.API.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
+                Company = user.Company,
+                Location = user.Location,
+                DateOfBirth = user.DateOfBirth.ToShortDateString(),
                 PhoneNumber = user.PhoneNumber,
                 ProfilePicture = user.PictureUrl == null ? $"{Request.Scheme}://{Request.Host}{Request.PathBase}/uploads/common/avatar.png" : user.PictureUrl
             };
@@ -84,6 +87,9 @@ namespace Kavifx.API.Controllers
             {
                  ImageUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/uploads/common/avatar.png";
             }
+            user.Company = model.Company;
+            user.DateOfBirth = Convert.ToDateTime(model.DateOfBirth);
+            user.Location = model.Location;
             user.PhoneNumber = model.PhoneNumber;
             user.PhoneNumberConfirmed = true;
             user.PictureUrl = ImageUrl;
