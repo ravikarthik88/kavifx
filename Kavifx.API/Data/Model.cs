@@ -22,18 +22,7 @@ namespace Kavifx.API.Data
     {
         public bool IsDeleted { get; set; } = false;
     }
-
-    public class Menu
-    {
-        [Key]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
-        [ForeignKey("Id")]
-        public int ParentMenuId { get; set; }
-        public string icon { get; set; }
-    }
-
+    
     public class Permission
     {
         [Key]
