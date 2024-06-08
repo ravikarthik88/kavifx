@@ -14,8 +14,6 @@ namespace Kavifx.API.Data
         public string Location { get; set; }
         public DateTime DateOfBirth { get; set; }        
         public string PictureUrl { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
         public bool IsActive { get; set; } = true;
         public bool IsDeleted { get; set; } = false;
     }
