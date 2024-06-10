@@ -1,15 +1,14 @@
 ﻿using Kavifx.UI.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
 namespace Kavifx.UI.Controllers
 {
-    public class RoleController : Controller
+    public class PermissionController : Controller
     {
         HttpClient client;
-        public RoleController(IHttpClientFactory factory)
+        public PermissionController(IHttpClientFactory factory)
         {
             client = factory.CreateClient("ApiClient");
         }
@@ -19,11 +18,11 @@ namespace Kavifx.UI.Controllers
         {
             string Token = HttpContext.Session.GetString("JWTToken");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-            var response = await client.GetAsync("Role");
+            var response = await client.GetAsync("Permission");
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<List<RoleViewModel>>(json);
+                var data = JsonConvert.DeserializeObject<List<PermissionViewModel>>(json);
                 return View(data);
             }
             return View();
@@ -36,15 +35,15 @@ namespace Kavifx.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateRoleViewModel model)
+        public async Task<IActionResult> Create(PermissionViewModel model)
         {
             string Token = HttpContext.Session.GetString("JWTToken");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var ReqContent = JsonContent.Create(model);
-            var response = await client.PostAsync("Role", ReqContent);
+            var response = await client.PostAsync("Permission", ReqContent);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "Role");
+                return RedirectToAction("Index", "Permission");
             }
             return View();
         }
@@ -56,34 +55,15 @@ namespace Kavifx.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string id,UpdateRoleViewModel model)
+        public async Task<IActionResult> Edit(string id, PermissionViewModel model)
         {
             string Token = HttpContext.Session.GetString("JWTToken");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var ReqContent = JsonContent.Create(model);
-            var response = await client.PutAsync("Role/"+id, ReqContent);
+            var response = await client.PutAsync("Permission/"+id, ReqContent);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "Role");
-            }
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult Delete()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(string id)
-        {
-            string Token = HttpContext.Session.GetString("JWTToken");
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);            
-            var response = await client.DeleteAsync("Role/" + id);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "Role");
+                return RedirectToAction("Index", "Permission");
             }
             return View();
         }

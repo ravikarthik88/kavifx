@@ -92,7 +92,6 @@ namespace Kavifx.UI.Controllers
             {
                 return RedirectToAction("Index", "UserRole");
             }
-
             return View();
         }
 
@@ -110,7 +109,7 @@ namespace Kavifx.UI.Controllers
             var response = await client.DeleteAsync("UserRole/" + id);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "UserRole");
+                return RedirectToAction("Index", "Dashboard");
             }
             return View();
         }

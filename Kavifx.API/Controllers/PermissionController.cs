@@ -31,7 +31,7 @@ namespace Kavifx.API.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PermissionViewModel>> GetPermissions(int id)
+        public async Task<ActionResult<PermissionViewModel>> GetPermissions(string id)
         {
             var permission = await ctx.Permissions.FindAsync(id);
             if(permission == null)
@@ -65,7 +65,7 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePermission(int id, [FromBody] PermissionViewModel viewModel)
+        public async Task<IActionResult> UpdatePermission(string id, [FromBody] PermissionViewModel viewModel)
         {
             var permission = await ctx.Permissions.FindAsync(id);
             if (permission == null)
@@ -81,7 +81,7 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePermission(int id)
+        public async Task<IActionResult> DeletePermission(string id)
         {
             var permission = await ctx.Permissions.FindAsync(id);
             if (permission == null)

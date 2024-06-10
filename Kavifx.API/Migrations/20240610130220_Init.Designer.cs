@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kavifx.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240610073317_Init")]
+    [Migration("20240610130220_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -146,11 +146,8 @@ namespace Kavifx.API.Migrations
 
             modelBuilder.Entity("Kavifx.API.Data.Permission", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -171,8 +168,8 @@ namespace Kavifx.API.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("PermissionId")
-                        .HasColumnType("int");
+                    b.Property<string>("PermissionId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("RoleId", "PermissionId");
 

@@ -1,3 +1,4 @@
+using Kavifx.API.helper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 
@@ -48,6 +49,8 @@ app.UseStaticFiles();
 
 app.UseSession();
 app.UseRouting();
+
+app.UseMiddleware<DechunkingMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

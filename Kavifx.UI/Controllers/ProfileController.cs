@@ -57,7 +57,7 @@ namespace Kavifx.UI.Controllers
                 var responseMessage = await client.PutAsync("Profile/"+id, form);                
                 if (responseMessage.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("Index", "Profile");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 else
                 {
