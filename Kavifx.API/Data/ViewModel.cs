@@ -145,4 +145,21 @@ namespace Kavifx.API.Data
         public int TotalAssignedRoles { get; set; }        
     }
     #endregion
+
+    #region Permission
+    public class PermissionViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+    #endregion
+
+    #region RolePermission
+    public class RolePermissionViewModel
+    {
+        public string RoleId { get; set; }
+        public int PermissionId { get; set; }
+    }
+    #endregion
 }

@@ -21,6 +21,7 @@ namespace Kavifx.API.Data
     public class AppRole:IdentityRole
     {
         public bool IsDeleted { get; set; } = false;
+        public ICollection<RolePermission> RolePermissions { get; set; }
     }
     
     public class Permission
@@ -28,18 +29,18 @@ namespace Kavifx.API.Data
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsDeleted { get; set; } = false;
+        public ICollection<RolePermission> RolePermissions { get; set; }
     }
 
     public class RolePermission
     {
-        [Key]
-        public int Id { get; set; }
-        public string RoleId { get; set; }        
+        public string RoleId { get; set; }
+        public AppRole Role { get; set; }
+
         public int PermissionId { get; set; }
-        [ForeignKey("RoleId")]
-        public virtual AppRole Role { get; set; }
-        [ForeignKey("PermissionId")]
-        public virtual Permission Permission { get; set; }
+        public Permission Permission { get; set; }
     }
 
 }
