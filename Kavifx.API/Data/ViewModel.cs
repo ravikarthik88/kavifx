@@ -107,6 +107,7 @@ namespace Kavifx.API.Data
     #endregion
 
     #region UserRole
+
     public class UserInRoleViewModel
     {
         public string Id { get; set; }
@@ -119,7 +120,6 @@ namespace Kavifx.API.Data
         public string Email { get; set; }
         public List<SelectListItem> Roles { get; set; }
     }
-
     public class UserRoleViewModel
     {
         public List<SelectListItem> Roles { get; set; }
@@ -156,10 +156,29 @@ namespace Kavifx.API.Data
     #endregion
 
     #region RolePermission
+
     public class RolePermissionViewModel
     {
-        public string RoleId { get; set; }
-        public int PermissionId { get; set; }
+        public List<SelectListItem> Roles { get; set; }
+        public List<SelectListItem> Permissions { get; set; }
+    }
+
+    public class PermissionInRoleViewModel
+    {
+        public string RoleName { get; set; }
+        public string Permissions { get; set; }
+    }
+
+    public class UpdatePermissionInRoleViewModel
+    {
+        public string RoleName { get; set; }
+        public List<SelectListItem> Permissions { get; set; }
+    }
+
+    public class AssignRolePermissionViewModel
+    {
+        public string RoleName { get; set; }
+        public string PermissionName { get; set; }
     }
     #endregion
 }

@@ -127,7 +127,7 @@ namespace Kavifx.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPost("update")]
         public async Task<IActionResult> UpdateUserRole([FromBody]AssignUserToRoleViewModel model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);

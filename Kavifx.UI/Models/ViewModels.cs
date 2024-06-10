@@ -159,4 +159,24 @@ namespace Kavifx.UI.Models
         public int TotalAssignedRoles { get; set; }
     }
     #endregion
+
+
+    #region Permission
+    public class PermissionViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+    #endregion
+
+    #region RolePermission
+    public class RolePermissionViewModel
+    {        
+        public List<SelectListItem> Roles { get; set; }
+        public string SelectedRole { get; set; }
+        public List<SelectListItem> Permissions { get; set; }
+        public string SelectedPermission { get; set; }
+    }
+    #endregion
 }

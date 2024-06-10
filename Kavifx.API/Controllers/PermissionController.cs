@@ -22,7 +22,8 @@ namespace Kavifx.API.Controllers
             var permissions = await ctx.Permissions.Select(x => new PermissionViewModel
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                Description = x.Description
             }).ToListAsync();
 
             return Ok(permissions);
@@ -41,7 +42,8 @@ namespace Kavifx.API.Controllers
             var permissions = new PermissionViewModel
             {
                 Id = permission.Id,
-                Name = permission.Name
+                Name = permission.Name,
+                Description = permission.Description
             };
 
             return Ok(permissions);
@@ -53,7 +55,8 @@ namespace Kavifx.API.Controllers
         {
             var permission = new Permission
             {
-                Name = viewModel.Name
+                Name = viewModel.Name,
+                Description = viewModel.Description
             };
 
             ctx.Permissions.Add(permission);
