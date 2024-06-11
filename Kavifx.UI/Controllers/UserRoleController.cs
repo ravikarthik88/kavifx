@@ -104,7 +104,7 @@ namespace Kavifx.UI.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<AssignUserToRoleViewModel>(json);
+                var data = JsonConvert.DeserializeObject<UserInRoleViewModel>(json);
                 return View(data);
             }
             return View();

@@ -1,4 +1,5 @@
 using Kavifx.API.helper;
+using Kavifx.UI.helper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 
@@ -24,7 +25,6 @@ builder.Services.AddAuthentication(options =>
         copt.LoginPath = "/Account/Login";
         copt.LogoutPath = "/Account/Logout";
     });
-builder.Services.AddControllersWithViews();
 
 builder.Services.Configure<FormOptions>(o =>
 {

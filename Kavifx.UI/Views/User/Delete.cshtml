@@ -35,7 +35,7 @@
             <img src="@Model.ProfilePictureUrl" class="img-fluid rounded" style="max-width:50px;max-height:50px;" />
         </dd>
     </dl>
-    <form asp-action="DeleteConfirmed" asp-controller="User" method="post">
+    <form asp-action="DeleteConfirmed" asp-controller="User" asp-route-id="@Model.UserId" method="post">
         <input type="submit" value="Delete" class="btn btn-danger" />
     </form>
 </div>

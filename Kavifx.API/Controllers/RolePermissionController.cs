@@ -60,7 +60,7 @@ namespace Kavifx.API.Controllers
             var roleswithpermissions = new List<PermissionInRoleViewModel>();
             foreach (var role in roles)
             {
-                var rolePermissions = await ctx.RolePermissions.Where(x => x.Role.Id == role.Id).Select(x => x.Permission.Name).ToListAsync();
+                var rolePermissions = await ctx.RolePermissions.Where(x => x.RoleId == role.Id).Select(x => x.Permission.Name).ToListAsync();
                 var permissions = string.Join(",", rolePermissions);
                 roleswithpermissions.Add(new PermissionInRoleViewModel
                 {
@@ -123,6 +123,15 @@ namespace Kavifx.API.Controllers
                 return NotFound("Permission Not Found");
             }
 
+            var rolepermit = new RolePermission
+            {
+                RoleId = role.Id,
+                PermissionId = permission.Id
+            };
+
+            ctx.RolePermissions.Add(rolepermit);
+            ctx.SaveChanges();
+
             var result = await _roleManager.AddClaimAsync(role, new Claim("permission", permission.Name));
             if (result.Succeeded)
             {
@@ -161,14 +170,6 @@ namespace Kavifx.API.Controllers
             {
                 return BadRequest("error adding user to new role");
             }
-
-            var rolepermit = new RolePermission
-            {
-                RoleId = role.Id,
-                PermissionId = permission
-            };
-            ctx.RolePermissions.Update(rolepermit);
-            await ctx.SaveChangesAsync();
             
             return Ok("Role permission updated successfully");
         }

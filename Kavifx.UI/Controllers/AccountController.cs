@@ -7,9 +7,10 @@ using System.Security.Claims;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Kavifx.UI.Controllers
-{
+{ 
     public class AccountController : Controller
     {
         HttpClient client;

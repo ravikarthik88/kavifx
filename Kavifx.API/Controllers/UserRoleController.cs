@@ -79,11 +79,12 @@ namespace Kavifx.API.Controllers
         {
             var user = await _userManager.Users.Where(x => x.IsActive == true && x.IsDeleted == false && x.Id == id).FirstOrDefaultAsync();
             var userRoles = await _userManager.GetRolesAsync(user);
-            var userRole = new AssignUserToRoleViewModel();
+            var userRole = new UserInRoleViewModel();
             foreach (var role in userRoles) 
             {
+                userRole.Id = id;
                 userRole.Email = user.Email;
-                userRole.RoleName = role;
+                userRole.Roles = role;                
             }
             return Ok(userRole);
         }
