@@ -170,6 +170,12 @@ namespace Kavifx.UI.Models
         public string Description { get; set; }
     }
 
+    public class UpdatePermissionViewModel
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+
     #endregion
 
     #region RolePermission
@@ -177,10 +183,13 @@ namespace Kavifx.UI.Models
     public class RolePermissionViewModel
     {
         public List<SelectListItem> Roles { get; set; }
-        public List<SelectListItem> Permissions { get; set; }
+        public List<SelectListItem> Permissions { get; set; }        
+        public string SelectedRole { get; set; }
+        public string SelectedPermission { get; set; }
     }
     public class PermissionInRoleViewModel
     {
+        public string Id { get; set; }
         public string RoleName { get; set; }
         public string Permissions { get; set; }
     }
@@ -188,6 +197,7 @@ namespace Kavifx.UI.Models
     {
         public string RoleName { get; set; }
         public List<SelectListItem> Permissions { get; set; }
+        public string PermissionName { get; set; }
     }
     public class AssignRolePermissionViewModel
     {

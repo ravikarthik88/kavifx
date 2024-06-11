@@ -1,0 +1,35 @@
+﻿@model Kavifx.UI.Models.RolePermissionViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Assign Role</h1>
+    <a asp-action="Index" asp-controller="RolePermission" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Assign Role Permission
+    </a>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" asp-controller="RolePermission" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SelectedRole" class="control-label"></label>
+                @Html.DropDownListFor(m => m.SelectedRole, new SelectList(Model.Roles, "Value", "Text"), "Please select a Role", new { @class = "form-control form-select" })
+                <span asp-validation-for="SelectedRole" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedPermission" class="control-label"></label>
+                @Html.DropDownListFor(m => m.SelectedPermission, new SelectList(Model.Permissions, "Value", "Text"), "Please select a Permission", new { @class = "form-control form-select" })
+                <span asp-validation-for="SelectedPermission" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

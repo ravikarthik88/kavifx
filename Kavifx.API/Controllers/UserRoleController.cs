@@ -74,6 +74,20 @@ namespace Kavifx.API.Controllers
             return Ok(userWithRoles);
         }
 
+        [HttpGet("GetUserRoles/{id}")]
+        public async Task<IActionResult> GetUserRoles(string id)
+        {
+            var user = await _userManager.Users.Where(x => x.IsActive == true && x.IsDeleted == false && x.Id == id).FirstOrDefaultAsync();
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var userRole = new AssignUserToRoleViewModel();
+            foreach (var role in userRoles) 
+            {
+                userRole.Email = user.Email;
+                userRole.RoleName = role;
+            }
+            return Ok(userRole);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserwithRoles(string id)
         {

@@ -34,7 +34,7 @@ namespace Kavifx.API.Controllers
                 Permissions.Add(new SelectListItem
                 {
                     Text = permit.Name,
-                    Value = permit.Id.ToString()
+                    Value = permit.Name
                 });
             }
 
@@ -60,16 +60,32 @@ namespace Kavifx.API.Controllers
             var roleswithpermissions = new List<PermissionInRoleViewModel>();
             foreach (var role in roles)
             {
-                var rolePermissions = await ctx.RolePermissions.Where(x => x.RoleId == role.Id).FirstAsync();
+                var rolePermissions = await ctx.RolePermissions.Where(x => x.Role.Id == role.Id).Select(x => x.Permission.Name).ToListAsync();
                 var permissions = string.Join(",", rolePermissions);
                 roleswithpermissions.Add(new PermissionInRoleViewModel
                 {
-                    RoleName = role.Name.ToString(),
+                    Id = role.Id,
+                    RoleName = role.Name,
                     Permissions = permissions
                 });
             }
 
             return Ok(roleswithpermissions);
+        }
+
+        [HttpGet("GetRolePermissions/{id}")]
+        public async Task<IActionResult> GetRolePermissions(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);            
+            var rolePermissions = await ctx.RolePermissions.Where(x => x.Role.Id == role.Id).Select(x => x.Permission.Name).ToListAsync();
+            var permissions = string.Join(",", rolePermissions);
+            var rolewithpermissions = new PermissionInRoleViewModel
+            {
+                Id = role.Id,
+                RoleName = role.Name,
+                Permissions = permissions
+            };
+            return Ok(rolewithpermissions);
         }
 
         [HttpGet("{id}")]
@@ -78,21 +94,21 @@ namespace Kavifx.API.Controllers
             var role = await _roleManager.Roles.Where(x => x.Id == id && x.IsDeleted == false).FirstOrDefaultAsync();
             UpdatePermissionInRoleViewModel updatePermissionInRole = new UpdatePermissionInRoleViewModel();
             List<SelectListItem> models = new List<SelectListItem>();
-            var rolePermissions = await ctx.RolePermissions.Where(x => x.Role.Id == role.Id).ToListAsync();
+            var permissions = await ctx.Permissions.Where(x => x.IsDeleted == false).ToListAsync();
             updatePermissionInRole.RoleName = role.Name;
-            foreach(var permit in rolePermissions)
+            foreach(var permit in permissions)
             {
                 models.Add(new SelectListItem
                 {
-                    Text = permit.Permission.Name,
-                    Value = permit.Permission.Id.ToString()
+                    Text = permit.Name,
+                    Value = permit.Name
                 });
             }
             updatePermissionInRole.Permissions = models;
             return Ok(updatePermissionInRole);
         }
 
-        [HttpPost("assign")]
+        [HttpPost]
         public async Task<IActionResult> AssignPermissionToRole([FromBody] AssignRolePermissionViewModel model)
         {
             var role = await _roleManager.FindByNameAsync(model.RoleName);
@@ -101,7 +117,7 @@ namespace Kavifx.API.Controllers
                 return NotFound("Role Not Found");
             }
 
-            var permission = await ctx.Permissions.FindAsync(model.PermissionName);
+            var permission = await ctx.Permissions.Where(x => x.Name == model.PermissionName).FirstOrDefaultAsync();
             if (permission == null)
             {
                 return NotFound("Permission Not Found");
@@ -118,16 +134,17 @@ namespace Kavifx.API.Controllers
             }
         }
 
-        [HttpPost("update")]
-        public async Task<IActionResult> UpdatePermissionToRole([FromBody] AssignRolePermissionViewModel model)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePermissionToRole(string id, [FromBody] AssignRolePermissionViewModel model)
         {
-            var role = await _roleManager.FindByNameAsync(model.RoleName);
+            var role = await _roleManager.FindByIdAsync(id);
             if (role == null)
             {
                 return NotFound("user not found");
             }
 
-            var permissionToRemove = await _roleManager.GetClaimsAsync(role);                        
+            var permissionToRemove = await _roleManager.GetClaimsAsync(role);
+            
             foreach (var roleName in permissionToRemove)
             {
                 var removeFromRoleResult = await _roleManager.RemoveClaimAsync(role, roleName);
@@ -136,14 +153,23 @@ namespace Kavifx.API.Controllers
                     return BadRequest("error removing permission from current role");
                 }
             }
-            
-            var permissionName = new Claim("permission", model.PermissionName);
 
+            var permission = await ctx.Permissions.Where(x => x.Name == model.PermissionName).Select(x=>x.Id).FirstOrDefaultAsync();
+            var permissionName = new Claim("permission", model.PermissionName);
             var addToRoleResult = await _roleManager.AddClaimAsync(role, permissionName);
             if (!addToRoleResult.Succeeded)
             {
                 return BadRequest("error adding user to new role");
             }
+
+            var rolepermit = new RolePermission
+            {
+                RoleId = role.Id,
+                PermissionId = permission
+            };
+            ctx.RolePermissions.Update(rolepermit);
+            await ctx.SaveChangesAsync();
+            
             return Ok("Role permission updated successfully");
         }
 

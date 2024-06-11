@@ -70,13 +70,23 @@ namespace Kavifx.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete()
+        public async Task<IActionResult> Delete(string id)
         {
+            string Token = HttpContext.Session.GetString("JWTToken");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+            var response = await client.GetAsync("Role/" + id);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<RoleViewModel>(json);
+                return View(data);
+            }
+
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             string Token = HttpContext.Session.GetString("JWTToken");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);            

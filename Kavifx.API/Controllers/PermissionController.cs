@@ -65,7 +65,7 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePermission(string id, [FromBody] PermissionViewModel viewModel)
+        public async Task<IActionResult> UpdatePermission(string id, [FromBody] UpdatePermissionViewModel viewModel)
         {
             var permission = await ctx.Permissions.FindAsync(id);
             if (permission == null)

@@ -68,7 +68,7 @@
                  data-bs-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Assign Roles:</h6>
-                    <a class="collapse-item" asp-controller="UserRole" asp-action="Index">View Assign Roles</a>
+                    <a class="collapse-item" asp-controller="UserRole" asp-action="Index">View UserRoles</a>
                 </div>
             </div>
         </li>
@@ -85,6 +85,22 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Assign Permissions:</h6>
                 <a class="collapse-item" asp-controller="Permission" asp-action="Index">View Permissions</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSix"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Role Permissions</span>
+        </a>
+        <div id="collapseSix" class="collapse" aria-labelledby="headingUtilities"
+             data-bs-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Manage RolePermissions:</h6>
+                <a class="collapse-item" asp-controller="RolePermission" asp-action="Index">View RolePermissions</a>
             </div>
         </div>
     </li>
