@@ -143,37 +143,6 @@ namespace Kavifx.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePermissionToRole(string id, [FromBody] AssignRolePermissionViewModel model)
-        {
-            var role = await _roleManager.FindByIdAsync(id);
-            if (role == null)
-            {
-                return NotFound("user not found");
-            }
-
-            var permissionToRemove = await _roleManager.GetClaimsAsync(role);
-            
-            foreach (var roleName in permissionToRemove)
-            {
-                var removeFromRoleResult = await _roleManager.RemoveClaimAsync(role, roleName);
-                if (!removeFromRoleResult.Succeeded)
-                {
-                    return BadRequest("error removing permission from current role");
-                }
-            }
-
-            var permission = await ctx.Permissions.Where(x => x.Name == model.PermissionName).Select(x=>x.Id).FirstOrDefaultAsync();
-            var permissionName = new Claim("permission", model.PermissionName);
-            var addToRoleResult = await _roleManager.AddClaimAsync(role, permissionName);
-            if (!addToRoleResult.Succeeded)
-            {
-                return BadRequest("error adding user to new role");
-            }
-            
-            return Ok("Role permission updated successfully");
-        }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemovePermissionToRole(string id)
         {
@@ -189,15 +158,22 @@ namespace Kavifx.API.Controllers
                 return NotFound("Permission not found");
             }
 
-            foreach (var claim in permissionClaims)
+            var rolePermit = await ctx.RolePermissions.FirstOrDefaultAsync(x => x.RoleId == id);
+            if (rolePermit != null) 
             {
-                var result = await _roleManager.RemoveClaimAsync(role, claim);
-                if (!result.Succeeded)
+                ctx.RolePermissions.Remove(rolePermit);
+                ctx.SaveChanges();
+
+                foreach (var claim in permissionClaims)
                 {
-                    return BadRequest("Failed to remove permission from role");
-                    
-                }                
-            }
+                    var result = await _roleManager.RemoveClaimAsync(role, claim);
+                    if (!result.Succeeded)
+                    {
+                        return BadRequest("Failed to remove permission from role");
+
+                    }
+                }
+            }            
             return Ok("Permission removed from role");
         }
     }

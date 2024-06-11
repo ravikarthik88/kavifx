@@ -1,4 +1,3 @@
-using Kavifx.API.helper;
 using Kavifx.UI.helper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
@@ -32,6 +31,8 @@ builder.Services.Configure<FormOptions>(o =>
     o.MultipartBodyLengthLimit = int.MaxValue;
     o.MemoryBufferThreshold = int.MaxValue;
 });
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

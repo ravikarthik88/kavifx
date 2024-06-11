@@ -61,38 +61,6 @@ namespace Kavifx.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string id)
-        {
-            string Token = HttpContext.Session.GetString("JWTToken");
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-            var response = await client.GetAsync("RolePermission/" +id);
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<UpdatePermissionInRoleViewModel>(json);
-                return View(data);
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(string id, UpdatePermissionInRoleViewModel model)
-        {
-            string Token = HttpContext.Session.GetString("JWTToken");
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-            AssignRolePermissionViewModel assignUserToRole = new AssignRolePermissionViewModel();
-            assignUserToRole.RoleName = model.RoleName;
-            assignUserToRole.PermissionName = model.PermissionName;
-            var Request = JsonContent.Create(assignUserToRole);
-            var response = await client.PutAsync("RolePermission/" + id, Request);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "RolePermission");
-            }
-            return View();
-        }
-
-        [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
             string Token = HttpContext.Session.GetString("JWTToken");
@@ -115,7 +83,7 @@ namespace Kavifx.UI.Controllers
             var response = await client.DeleteAsync("RolePermission/" + id);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index", "RolePermission");
             }
             return View();
         }

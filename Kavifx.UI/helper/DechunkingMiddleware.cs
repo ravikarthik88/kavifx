@@ -4,7 +4,7 @@ using System.IO.Compression;
 using System.Threading.Tasks;
 
 
-namespace Kavifx.API.helper
+namespace Kavifx.UI.helper
 {
     public class DechunkingMiddleware
     {
