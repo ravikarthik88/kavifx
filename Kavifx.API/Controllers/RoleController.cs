@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kavifx.API.Controllers
 {
@@ -29,9 +30,9 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRoleById(string id)
+        public async Task<IActionResult> GetRoleById(int id)
         {
-            var role = await _roleManager.FindByIdAsync(id);
+            var role = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == id);
 
             if (role == null)
             {
@@ -65,9 +66,9 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRole(string id,[FromBody]UpdateRoleViewModel model)
+        public async Task<IActionResult> UpdateRole(int id,[FromBody]UpdateRoleViewModel model)
         {
-            var role = await _roleManager.FindByIdAsync(id);
+            var role = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == id);
 
             if (role == null)
             {
@@ -86,9 +87,9 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRole(string id)
+        public async Task<IActionResult> DeleteRole(int id)
         {
-            var role = await _roleManager.FindByIdAsync(id);
+            var role = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == id);
 
             if (role == null)
             {

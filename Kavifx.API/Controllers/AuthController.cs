@@ -41,7 +41,7 @@ namespace Kavifx.API.Controllers
                     {
                         new Claim(ClaimTypes.Name,user.FirstName),
                         new Claim(ClaimTypes.Email,model.Email),
-                        new Claim(ClaimTypes.NameIdentifier,user.Id),
+                        new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
                         new Claim("Profilepic",user.PictureUrl)
                     };
 

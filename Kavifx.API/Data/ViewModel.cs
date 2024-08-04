@@ -32,7 +32,7 @@ namespace Kavifx.API.Data
     #region User
     public class UserViewModel
     {
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [Required, EmailAddress]
@@ -48,7 +48,7 @@ namespace Kavifx.API.Data
     }
     public class ProfileViewModel
     {
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -72,12 +72,13 @@ namespace Kavifx.API.Data
     }
     public class UpdateProfilePictureViewModel
     {
-        public string UserId { get; set; }
+        public string Email { get; set; }
         public IFormFile file { get; set; }
     }
     public class ChangePasswordViewModel
     {
-        public string UserId { get; set; }
+        [Required, DataType(DataType.EmailAddress),EmailAddress]
+        public string Email { get; set; }
         [Required, DataType(DataType.Password)]
         public string OldPassword { get; set; }
         [Required, DataType(DataType.Password)]
@@ -91,7 +92,7 @@ namespace Kavifx.API.Data
     #region Role
     public class RoleViewModel
     {
-        public string RoleId { get; set; }
+        public int RoleId { get; set; }
         public string Name { get; set; }
     }
 
@@ -110,7 +111,7 @@ namespace Kavifx.API.Data
 
     public class UserInRoleViewModel
     {
-        public string Id { get; set; }
+        public int UserId { get; set; }
         public string Email { get; set; }
         public string Roles { get; set; }
     }
@@ -149,7 +150,7 @@ namespace Kavifx.API.Data
 
     public class PermissionViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }
@@ -171,7 +172,7 @@ namespace Kavifx.API.Data
     }
     public class PermissionInRoleViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string RoleName { get; set; }
         public string Permissions { get; set; }
     }

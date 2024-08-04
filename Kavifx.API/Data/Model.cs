@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Kavifx.API.Data
 {
-    public class AppUser:IdentityUser
+    public class AppUser:IdentityUser<int>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,7 +14,7 @@ namespace Kavifx.API.Data
         public bool IsDeleted { get; set; } = false;
     }
 
-    public class AppRole:IdentityRole
+    public class AppRole:IdentityRole<int>
     {
         public bool IsDeleted { get; set; } = false;
         public ICollection<RolePermission> RolePermissions { get; set; }
@@ -26,7 +22,7 @@ namespace Kavifx.API.Data
     
     public class Permission
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsDeleted { get; set; } = false;
@@ -35,10 +31,10 @@ namespace Kavifx.API.Data
 
     public class RolePermission
     {
-        public string RoleId { get; set; }
+        public int RoleId { get; set; }
         public AppRole Role { get; set; }
 
-        public string PermissionId { get; set; }
+        public int PermissionId { get; set; }
         public Permission Permission { get; set; }
     }
 

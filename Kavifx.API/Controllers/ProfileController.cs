@@ -40,11 +40,11 @@ namespace Kavifx.API.Controllers
             return Ok(profile);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> EditProfile(string id,[FromForm]UpdateProfileViewModel model)
+        [HttpPut("{email}")]
+        public async Task<IActionResult> EditProfile(string email,[FromForm]UpdateProfileViewModel model)
         {
             string ImageUrl = string.Empty;
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByEmailAsync(email);
             if(user == null)
             {
                 return NotFound("User Not Found");
@@ -106,7 +106,7 @@ namespace Kavifx.API.Controllers
         public async Task<IActionResult> UpdateProfilePicture([FromForm]UpdateProfilePictureViewModel model)
         {
             string ImageUrl = string.Empty;
-            var user = await _userManager.FindByIdAsync(model.UserId);
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 return NotFound("User Not Found");
@@ -163,7 +163,7 @@ namespace Kavifx.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
                 return NotFound("User not found.");
 

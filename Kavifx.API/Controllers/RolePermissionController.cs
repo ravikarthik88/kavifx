@@ -89,7 +89,7 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRoleswithPermissions(string id)
+        public async Task<IActionResult> GetRoleswithPermissions(int id)
         {
             var role = await _roleManager.Roles.Where(x => x.Id == id && x.IsDeleted == false).FirstOrDefaultAsync();
             UpdatePermissionInRoleViewModel updatePermissionInRole = new UpdatePermissionInRoleViewModel();
@@ -144,7 +144,7 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> RemovePermissionToRole(string id)
+        public async Task<IActionResult> RemovePermissionToRole(int id)
         {
             var role = await _roleManager.FindByIdAsync(id);
             if (role == null)

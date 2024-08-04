@@ -65,7 +65,7 @@ namespace Kavifx.API.Controllers
                 var roles = string.Join(",", userRoles);
                 userWithRoles.Add(new UserInRoleViewModel
                 {
-                    Id = user.Id,
+                    UserId = user.Id,
                     Email = user.Email,
                     Roles = roles
                 });
@@ -75,14 +75,14 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpGet("GetUserRoles/{id}")]
-        public async Task<IActionResult> GetUserRoles(string id)
+        public async Task<IActionResult> GetUserRoles(int id)
         {
             var user = await _userManager.Users.Where(x => x.IsActive == true && x.IsDeleted == false && x.Id == id).FirstOrDefaultAsync();
             var userRoles = await _userManager.GetRolesAsync(user);
             var userRole = new UserInRoleViewModel();
             foreach (var role in userRoles) 
             {
-                userRole.Id = id;
+                userRole.UserId = id;
                 userRole.Email = user.Email;
                 userRole.Roles = role;                
             }

@@ -42,9 +42,9 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(string id) 
+        public async Task<IActionResult> GetUserById(int id) 
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
                 return NotFound("User not found");
@@ -63,9 +63,9 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(string id,[FromBody]UpdateUserViewModel model)
+        public async Task<IActionResult> UpdateUser(int id,[FromBody]UpdateUserViewModel model)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
                 return NotFound("User Not Found");
@@ -82,9 +82,9 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(string id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
                 return NotFound();
