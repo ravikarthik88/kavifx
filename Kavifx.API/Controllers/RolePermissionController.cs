@@ -146,7 +146,7 @@ namespace Kavifx.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemovePermissionToRole(int id)
         {
-            var role = await _roleManager.FindByIdAsync(id);
+            var role = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == id);
             if (role == null)
             {
                 return NotFound("Role Not Found");
