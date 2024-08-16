@@ -90,7 +90,7 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserwithRoles(string id)
+        public async Task<IActionResult> GetUserwithRoles(int id)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x=>x.Id == id && x.IsActive == true && x.IsDeleted ==false);
             UpdateUserInRoleViewModel userWithRoles = new UpdateUserInRoleViewModel();
@@ -143,7 +143,7 @@ namespace Kavifx.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUserRole([FromBody]AssignUserToRoleViewModel model)
+        public async Task<IActionResult> UpdateUserRole(int id,[FromBody]AssignUserToRoleViewModel model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)

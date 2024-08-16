@@ -8,6 +8,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddIdentity<AppUser,AppRole>()
     .AddEntityFrameworkStores<AppDbContext>()

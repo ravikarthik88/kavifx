@@ -68,12 +68,12 @@ namespace Kavifx.API.Data
         public string Location { get; set; }
         [Required, DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
-        public IFormFile file { get; set; }
+        public IFormFile File { get; set; }
     }
     public class UpdateProfilePictureViewModel
     {
         public string Email { get; set; }
-        public IFormFile file { get; set; }
+        public IFormFile File { get; set; }
     }
     public class ChangePasswordViewModel
     {
@@ -117,7 +117,7 @@ namespace Kavifx.API.Data
     }
     public class UpdateUserInRoleViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Email { get; set; }
         public List<SelectListItem> Roles { get; set; }
     }

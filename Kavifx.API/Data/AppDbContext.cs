@@ -13,9 +13,8 @@ namespace Kavifx.API.Data
             var host = _config["mysql:DBHOST"] ?? "localhost";
             var port = _config["mysql:PORT"] ?? "3306";
             var password = _config["mysql:PASSWORD"] ?? "password";
-            var database = _config["mysql:DATABASE"] ?? "AppDB";
 
-            _conString = $"server={host};userid=root;pwd={password};port:{port};database={database}";
+            _conString = $"server={host};userid=root;pwd={password};port:{port};database=AppDB";
         }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }                
         public DbSet<Permission> Permissions { get; set; }
