@@ -50,7 +50,7 @@ namespace Kavifx.API.Controllers
                 return NotFound("User Not Found");
             }
 
-            if(model.file == null || model.file.Length == 0 || Request.Form.Files.Count > 1)
+            if(model.File == null || model.File.Length == 0 || Request.Form.Files.Count > 1)
             {
                 return BadRequest("Invalid request data");
             }
@@ -63,7 +63,7 @@ namespace Kavifx.API.Controllers
             }
 
             //check allowed extensions
-            var extn = Path.GetExtension(model.file.FileName);
+            var extn = Path.GetExtension(model.File.FileName);
             var allowedExtensions = new string[] { ".jpg", ".png", ".jpeg" };
             if (!allowedExtensions.Contains(extn))
             {
@@ -75,7 +75,7 @@ namespace Kavifx.API.Controllers
             var filewithPath = Path.Combine(filePath, newFileName);
             using (var stream = new FileStream(filewithPath, FileMode.Create))
             {
-                await model.file.CopyToAsync(stream);
+                await model.File.CopyToAsync(stream);
                 await stream.FlushAsync();
             }
 
@@ -111,7 +111,7 @@ namespace Kavifx.API.Controllers
             {
                 return NotFound("User Not Found");
             }
-            if (model.file == null || model.file.Length == 0 || Request.Form.Files.Count > 1)
+            if (model.File == null || model.File.Length == 0 || Request.Form.Files.Count > 1)
             {
                 return BadRequest("Invalid request data");
             }
@@ -124,7 +124,7 @@ namespace Kavifx.API.Controllers
             }
 
             //check allowed extensions
-            var extn = Path.GetExtension(model.file.FileName);
+            var extn = Path.GetExtension(model.File.FileName);
             var allowedExtensions = new string[] { ".jpg", ".png", ".jpeg" };
             if (!allowedExtensions.Contains(extn))
             {
@@ -136,7 +136,7 @@ namespace Kavifx.API.Controllers
             var filewithPath = Path.Combine(filePath, newFileName);
             using (var stream = new FileStream(filewithPath, FileMode.Create))
             {
-                await model.file.CopyToAsync(stream);
+                await model.File.CopyToAsync(stream);
                 await stream.FlushAsync();
             }
 
